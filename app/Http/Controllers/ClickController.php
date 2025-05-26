@@ -11,6 +11,7 @@ class ClickController extends Controller
 {
     public function click()
     {
+        info('enter here');
         $user = auth()->user();
 
         if ($user->role !== 'user') {
