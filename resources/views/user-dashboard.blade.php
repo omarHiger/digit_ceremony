@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <audio id="countdownSound" src="{{asset('countdown.wav')}}" preload="auto"></audio>
+
+    <!-- For Android (Chrome) -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <!-- For iOS (Safari) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Manifest file (required for Android full screen) -->
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
 </head>
 <body>
 <div class="grid"></div>
@@ -37,7 +49,7 @@
 <div id="panel">
     <div id="msg">Count Down For Opening</div>
     <div id="time">9</div>
-    <span id="abort" hidden>ABORT</span>
+    <span id="abort" hidden></span>
     <span id="detonate">Welcome To Digit</span>
 </div>
 
@@ -51,7 +63,6 @@
 <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
 
 <script>
-
     var theCount;
     var panel = document.getElementById("panel");
     var turnOff = document.getElementById("turn-off");
@@ -66,6 +77,21 @@
     var pusher = new Pusher('ab4cc4e2fa02e285d567', {
         cluster: 'ap1'
     });
+
+    // Function to toggle fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        // Request fullscreen for the entire document
+        document.documentElement.requestFullscreen().catch(err => {
+            console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+      } else {
+        // Exit fullscreen if currently in fullscreen
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
 
     function handleClick() {
         fetch('/click', {
@@ -125,17 +151,28 @@
     activate.addEventListener("click", function () {
         handleClick();
         this.classList.add("pushed");
+        // If you still want an in-browser fullscreen option on interaction:
+        toggleFullscreen();
     });
 
     const channel = pusher.subscribe('owner-channel');
     channel.bind('App\\Events\\AllUsersClicked', function (data) {
+        const serverTimestamp = data.timestamp; // Assuming server sends timestamp
+        const now = Date.now();
+        const latencyBuffer = 50; // Small buffer for network latency (milliseconds)
+        const delay = Math.max(0, serverTimestamp - now + latencyBuffer);
+
         setTimeout(function () {
             panel.classList.add("show");
-            countdownSound.play();
-            setTimeout(function () {
-                theCount = setInterval(showCountDown, 1000);
-            }, 1600);
-        }, 500);
+            countdownSound.play(); // Play the countdown sound immediately
+
+            // Schedule the visual countdown to start 1 second later
+            setTimeout(function(){
+                 time.innerText = 9; // Set initial countdown value
+                 theCount = setInterval(showCountDown, 1000); // Start visual countdown
+            }, 1000); // 1000 milliseconds = 1 second delay
+
+        }, delay); // Execute the synchronized actions after the calculated delay
     });
 
 

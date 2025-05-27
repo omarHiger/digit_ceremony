@@ -7,6 +7,18 @@
 
     <title>Digit ~ Opening Ceremony</title>
 
+    <!-- For Android (Chrome) -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <!-- For iOS (Safari) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Manifest file (required for Android full screen) -->
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+
     <style>
         :root {
             --dark-bg: #131515;
@@ -32,6 +44,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
