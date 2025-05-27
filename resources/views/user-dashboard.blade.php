@@ -5,18 +5,8 @@
     <title>Digit ~ Opening Ceremony</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <audio id="countdownSound" src="{{asset('countdown.wav')}}" preload="auto"></audio>
 </head>
-{{--<x-slot name="header" class="bg-[var(--dark-bg)]">--}}
-{{--    <link rel="stylesheet" href="{{ asset('style.css') }}?v=1.0">--}}
-{{--    <title>Digit ~ Opening Ceremony</title>--}}
-{{--    <div class="flex items-center justify-between ">--}}
-{{--        <div class="flex items-center space-x-4">--}}
-{{--            <img src="{{ asset('logo.png') }}" alt="Company Logo" class="w-12 h-12">--}}
-{{--            <h1 class="text-2xl font-bold text-[var(--dark-text)]">ClickSync Dashboard</h1>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</x-slot>--}}
 
 <body>
 <div class="grid"></div>
@@ -58,82 +48,8 @@
 <div id="restart">Let's Digitalize the Future.</div>
 
 <div class="confetti-container"></div>
-<audio id="countdownSound" src="{{asset('countdown.wav')}}" preload="auto"></audio>
+
 </body>
-
-{{--    <div class="min-h-screen bg-[var(--dark-bg)]">--}}
-{{--        <main class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">--}}
-{{--            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">--}}
-{{--                <!-- Click Section -->--}}
-{{--                <div class="bg-[var(--dark-bg)] rounded-2xl p-8 shadow-xl">--}}
-{{--                    <h2 class="text-2xl font-bold text-[var(--dark-text)] mb-6">Synchronized Click</h2>--}}
-{{--                    <button--}}
-{{--                        onclick="handleClick()"--}}
-{{--                        class="w-full py-4 bg-[var(--accent)] hover:bg-[#8a12d3] text-white font-bold rounded-xl transition-[var(--transition-standard)] transform hover:scale-[1.02] active:scale-95 flex items-center justify-center space-x-2"--}}
-{{--                        id="clickButton"--}}
-{{--                    >--}}
-{{--                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"--}}
-{{--                             aria-hidden="true">--}}
-{{--                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>--}}
-{{--                        </svg>--}}
-{{--                        <span>Activate Sync</span>--}}
-{{--                        <svg id="syncLoader" class="w-5 h-5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg"--}}
-{{--                             fill="none" viewBox="0 0 24 24">--}}
-{{--                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"--}}
-{{--                                    stroke-width="4"></circle>--}}
-{{--                            <path class="opacity-75" fill="currentColor"--}}
-{{--                                  d="M4 12a8 8 0 018-8v4l5-5-5-5v4a8 8 0 100 16z"/>--}}
-{{--                        </svg>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
-
-{{--                <!-- Status Panel -->--}}
-{{--                <div class="bg-white rounded-2xl p-8 shadow-xl bg-[var(--dark-bg)]">--}}
-{{--                    <h2 class="text-2xl font-bold text-[var(--dark-text)] mb-6">Sync Status</h2>--}}
-{{--                    <div id="response" class="space-y-6">--}}
-{{--                        <div--}}
-{{--                            class="flex items-center justify-between p-4  bg-[var(--accent)]  rounded-2xl p-8 shadow-xl rounded-lg">--}}
-{{--                            <div class="space-y-1">--}}
-{{--                                <h3 class="text-lg font-semibold text-[var(--light-text)]">Current Session</h3>--}}
-{{--                                <p class="text-sm text-[var(--grey-dark)]" id="sessionTimer">Active for next 10--}}
-{{--                                    seconds</p>--}}
-{{--                            </div>--}}
-{{--                            <div class="w-12 h-12 rounded-full bg-[var(--accent)]/10 flex items-center justify-center">--}}
-{{--                                <svg class="w-6 h-6 text-[var(--accent)]" fill="none" stroke="currentColor"--}}
-{{--                                     stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">--}}
-{{--                                    <path stroke-linecap="round" stroke-linejoin="round"--}}
-{{--                                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>--}}
-{{--                                </svg>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="grid grid-cols-2 gap-4 \">--}}
-{{--                            <div class="p-4  bg-[var(--accent)]  rounded-lg text-center">--}}
-{{--                                <p class="text-sm text-[var(--grey-dark)]">Total Users</p>--}}
-{{--                                <p class="text-2xl font-bold text-[var(--light-text)]" id="totalUsers">0</p>--}}
-{{--                            </div>--}}
-{{--                            <div class="p-4  bg-[var(--accent)]  rounded-lg text-center">--}}
-{{--                                <p class="text-sm text-[var(--grey-dark)]">Active Now</p>--}}
-{{--                                <p class="text-2xl font-bold text-[var(--light-text)]" id="activeUsers">0</p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="p-4  bg-[var(--accent)]  rounded-lg">--}}
-{{--                            <div class="flex items-center justify-between mb-2">--}}
-{{--                                <span class="text-sm text-[var(--grey-dark)]">Sync Progress</span>--}}
-{{--                                <span class="text-sm font-semibold text-[var(--accent)]" id="progressText">0%</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">--}}
-{{--                                <div id="progressBar"--}}
-{{--                                     class="h-full bg-[var(--accent)] transition-[var(--transition-smooth)] rounded-full"--}}
-{{--                                     style="width: 0%"></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </main>--}}
-{{--    </div>--}}
 
 <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
 
@@ -148,7 +64,6 @@
     var confettiContainer = document.querySelector('.confetti-container');
     var countdownSound = document.getElementById("countdownSound");
 
-    countdownSound.load();
 
     Pusher.logToConsole = true;
 
